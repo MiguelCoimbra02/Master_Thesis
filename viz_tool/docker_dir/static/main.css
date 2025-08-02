@@ -1,0 +1,854 @@
+/* static/styles.css */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+
+
+p {
+    margin: 1px 0; /* Adjust the top and bottom margin */
+}
+
+h1 {
+    margin: 10px 10px; /* Adjust the top and bottom margin */
+    margin-left: 0px;
+}
+
+.back-home{
+    font-size: 30px;
+    color: floralwhite;
+    transform: scaleY(2);
+    margin-right: 5px;
+    vertical-align: middle;
+
+}
+/*navbar*/
+.navbar {
+    background: #333333;
+    color: floralwhite;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    justify-content: space-between;
+}
+
+
+.navbar-left {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.navbar-right {
+    display: flex;
+}
+
+.nav-link {
+    color: floralwhite;
+    margin-left: 10px;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #333333;
+
+}
+
+
+.nav-link:hover {
+    color: floralwhite;
+    background-color: #2a2929;
+    border: 1px solid #4b4b4b; 
+    border-radius: 4px;
+}
+
+.nav-button{
+    font-size: 16px;
+    background: #333333;
+    color: floralwhite;
+    cursor: pointer; 
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-left: 10px;
+    border: 1px solid #333333;
+}
+
+.nav-button:hover {
+    color: floralwhite;
+    background-color: #2a2929;
+    border: 1px solid #4b4b4b; 
+    border-radius: 4px;
+}
+
+.navDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-toggle {
+    background: #333333;
+    border: 1px solid #333333;
+    color: floralwhite;
+    border-radius: 4px;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.dropdown-toggle:hover {
+    color: floralwhite;
+    background-color: #2a2929;
+    border: 1px solid #4b4b4b; 
+    border-radius: 4px;
+}
+.dropdown-menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+}
+.dropdown-item {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-item:hover {
+    background-color: #f1f1f1; /* Highlight item on hover */
+}
+
+input[type="checkbox"] {
+    accent-color: #416a00; /* Green */
+}
+
+.show {
+    display: block; /* Class to show the dropdown */
+}
+.container-fluid{
+    padding: 10px; 
+}
+.search-container {
+    max-width: 600px;
+    margin-top: 1%;
+   
+}
+.search-container b{
+    color: #333333;
+}
+
+.search-form {
+    display: flex;
+    align-items: center; /* Align items vertically (same height) */
+    justify-content: space-between; /* Button will align to the right */
+    gap: 10px; /* Add some space between the input and button */
+}
+.searchbar{
+    min-width: 100px;
+}
+
+.search-form input {
+    flex: 1; /* Makes the input take the remaining space */
+    padding: 10px;
+    font-size: 16px;
+}
+
+#searchButton{
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.search-form .button {
+    background-color: #416a00;
+    font-size: 16px;
+    color: aliceblue;
+    cursor: pointer; 
+    outline: none;
+    float: right;
+    border: none;
+    padding: 10px 20px;
+    width: 30%;
+    border-radius: 4%;
+}
+
+.button:hover{
+    background-color: #528600;
+}
+
+.button:active{
+    background-color: #416a00;
+}
+
+.example-text{
+    display: inline-block;
+    margin-right: 3%;
+    font-size: small;
+    
+    color: #949494;
+}
+/* filter */
+
+.filter-fieldset{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+/* Dropdown button styling */
+.dropdown{
+    font-size: 10;
+    padding-bottom: 5px;
+}
+
+.btn-filter-image {
+    width: 6%;
+    float: inline-end;
+}
+
+.dropbtn {
+    background-color: #e0dfdf;
+    color: #333333;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width:100%;
+    text-align: left;
+}
+
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    background-color: 'white';
+    border: 1px solid #d0cece;
+    width: 100%;
+    
+}
+
+/* Each selectable option (checkbox) */
+.option {
+    background-color: 'white';
+    color: #333333;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+}
+
+.option-directed {
+    background-color: 'white';
+    color: #333333;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.option input{
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.option-directed input{
+    margin-right: 15px;
+    cursor: pointer;
+
+}
+
+/* Show dropdown on button click */
+.show {
+    display: grid;
+}
+
+/* Option hover effect */
+.option:hover {
+    background-color: #e9e9e9;
+}
+
+/*ranger slider*/
+.slider-container {
+    display: block;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0 10px;  
+    overflow: hidden;
+    border-radius: 16px; 
+    width: 60%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 15px;
+    background: #e0dfdf;
+    border-radius: 16px;
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 2px solid #416a00;
+    box-shadow: -407px 0 0 400px #416a00;} /*trick to develop bar progress*/
+
+#manualInput {
+    width: 25%; /* Adjust the width as needed */
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px; /* Adjust the font size for readability */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    outline: none; /* Remove focus outline */
+}
+
+#manualInput_viz_nodes {
+    width: 25%; /* Adjust the width as needed */
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 14px; /* Adjust the font size for readability */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    outline: none; /* Remove focus outline */
+}
+
+.note-text {
+    text-align: justify;   /* or left, center, justify */
+    margin: 1em 0;    
+    font-size: small;   /* optional spacing above/below */
+  }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+
+/* info tables */
+.tooltip_table {
+    width: 100% !important;
+    min-width: 700px !important;
+    max-width: 900px !important;
+    margin: auto; /* Centers the table */
+    text-align: center;
+    table-layout: fixed; /* Ensures even column distribution */
+    word-wrap: break-word;
+}
+
+.tooltip_table td, .tooltip_table th {
+    word-break: break-word;
+    white-space: normal;
+    padding: 10px;
+    text-align: center;
+}
+
+.vex.vex-theme-default .vex-content {
+    border-radius: 5px;
+    font-family: "Helvetica Neue", sans-serif;
+    background: #f0f0f0;
+    color: #444;
+    padding: 1em;
+    position: relative;
+    margin: 0 auto;
+    width: 100% !important;
+    min-width: 700px !important;
+    max-width: 900px !important;
+    font-size: 1.1em;
+    line-height: 1.5em;
+}
+
+
+
+/* legend */
+.legend-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.legend-column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.legend-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.legend-fieldset{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+/* Button styling */
+.toggle-btn {
+    background-color: #416a00;
+    font-size: 16px;
+    color: aliceblue;
+    cursor: pointer; 
+    outline: none;
+    border: none;
+    padding: 3px 5px;
+    width: 30%;
+    margin-bottom: 10px;   
+    float: left;
+}
+.button-image{
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+.toggle-btn:hover {
+    background-color: #528600;
+}
+
+.toggle-btn:active{
+    background-color: #416a00;
+}
+
+.legend-divider{
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legend {
+    margin-top: 10px; /* Ensures some space between the button and the legend */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    width: 250px;
+    display: none; /* Initially hidden */
+    position: absolute;
+    z-index: 1000;
+}
+.legend-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #416a00;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: left;
+}
+.legend-item-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.legend-item-e {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+.co-expression-edges{
+    font-size: 30px;
+    color:#6d468f;
+    transform: scaleY(2);
+    margin-right: 5px;
+    vertical-align: middle;
+
+}
+
+.direct-edges{
+    width: 27px;
+    height: 8px;
+    border: none;
+    background-color: #6d468f !important;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 1;
+}
+
+.legend-shape {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.ranking-list {
+    font-size: 12px;
+    text-align: justify;
+}
+
+
+.circle-query {
+    background-color: #f09d62;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+
+}
+
+.real-circle-query {
+    background-color: #f09d62;
+    border: 1px solid #c45205;
+    border-radius: 50%;
+}
+
+.circle {
+    background-color: #c7bba9;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.box {
+    background-color: #79e34e;
+    border: 1px solid #afaba2;
+    border-radius: 50%;
+}
+.box-tf {
+    background-color: #f5be15;
+    border: 1px solid #afaba2;
+    border-radius: 50%;
+}
+
+
+
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* USER GUIDE */
+
+/* Header Styles for User Guide */
+#user-guide header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#user-guide header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: black; /* Text color set to black */
+}
+
+#user-guide header p {
+    font-size: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    color: black; /* Text color set to black */
+}
+
+/* Section Styles for User Guide */
+#user-guide section {
+    background-color: #fff;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#user-guide section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: black; /* Text color set to black */
+}
+
+#user-guide section h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: black; /* Text color set to black */
+}
+
+/* Lists within the User Guide */
+#user-guide ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#user-guide ul li {
+    margin: 5px 0;
+    color: black; /* Text color set to black */
+}
+
+#user-guide ul li:hover {
+    cursor: pointer;
+}
+
+/* Paragraphs within User Guide */
+#user-guide p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: black; /* Text color set to black */
+}
+
+/* Details Section Styling */
+details {
+    color: black; /* Text color set to black */
+}
+
+/* Button Styling */
+#user-guide button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#user-guide button:hover {
+    background-color: #2980b9;
+}
+
+/* Table Styling for Node/Edge Export */
+#user-guide table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#user-guide th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#user-guide th {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Media Queries for responsiveness */
+.guide-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+/* Text Content */
+.text-content {
+    flex: 1; /* Takes up available space */
+    max-width: 40%;
+}
+
+/* Image Styling */
+.image-content {
+    flex-shrink: 0; /* Prevents image from shrinking */
+    max-width: 55%; /* Make sure the image doesn't take too much space */
+    display: flex;
+    justify-content: flex-end; /* Align the image to the right */
+}
+
+.image-content img {
+    width: 100%; /* Ensure the image fills the container */
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .guide-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-content {
+        max-width: 100%;
+    }
+
+    .image-content {
+        max-width: 100%;
+    }
+
+    .image-content img {
+        width: 80%;
+    }
+}
+
+#user-guide a {
+    color: #416a00;  /* Green color */
+    text-decoration: none;  /* Removes underline */
+}
+
+#user-guide a:hover {
+    text-decoration: underline;  /* Optional: Underline on hover */
+}
+
+#user-guide section h2 {
+    color: #273f00;
+    font-size: 28px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#user-guide section h3 {
+    color: #355502;
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+/* ABOUT */
+#about a {
+    color: #416a00;  /* Green color */
+    text-decoration: none;  /* Removes underline */
+}
+
+#about .content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2%;
+}
+
+#about .text-section {
+    flex: 1;
+    height: 500px; /* Set the height for scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+#about .image-container {
+    flex: 1;
+    text-align: center;
+}
+
+#about .image-container img {
+    max-width: 70%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    object-position: top;
+}
+
+#about body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9;
+}
+
+#about section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#about h2 {
+    color: #273f00;
+    font-size: 28px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#about h3 {
+    color: #355502;
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+#about p strong {
+    color: #292929;
+    font-weight: bold;
+}
+
+#about p em {
+    color: #292929;
+}
+
+#about .section-divider {
+    margin: 30px 0;
+    border-top: 1px solid #ecf0f1;
+}
+
+#about a:hover {
+    text-decoration: underline;  /* Optional: Underline on hover */
+}
+
+#about .image-container .image-caption {
+    font-size: 14px;          
+    color: #555;             
+    text-align: center;       
+    margin-top: 10px;        
+    font-style: italic;       
+    line-height: 1.4;         
+    max-width: 90%;          
+    margin-left: auto;        
+    margin-right: auto;      
+}

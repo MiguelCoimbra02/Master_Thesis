@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  neo4j:
+    image: neo4j:5.26 # or latest stable version
+    container_name: neo4j
+    ports:
+      - "17687:7687"
+      - "17474:7474"
+    environment:
+      - "NEO4J_AUTH=neo4j/miguel@itqb"   # username/password for neo4j 
+      #- NEO4J_dbms_security_allow_csv_import_from_file_urls=true
+    volumes:
+      #- ./data/csv_files:/csv_files   # <-- consistent mount path
+      - ./data:/data
+      #- ./logs:/logs
+      #- ./plugins:/plugins
+      #- ./conf:/conf
+    #restart: always
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6380:6379"
+  app:
+    build:
+      context: .                 # your app folder path
+      dockerfile: Dockerfile
+    depends_on:
+      - neo4j                         # ensures neo4j starts first
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=miguel@itqb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    ports:
+      - "5001:5001"
+    #restart: always
+    #volumes:
+    #  - ./data/csv_files:/csv_files

@@ -1,0 +1,144 @@
+<!-- templates/search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css" integrity="sha512-bkB9w//jjNUnYbUpATZQCJu2khobZXvLP5GZ8jhltg7P/dghIrTaSJ7B/zdlBUT0W/LXGZ7FfCIqNvXjWKqCYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" integrity="sha512-yrLbujQF3UPLrlaavtewYmv7OFD8AGO5PS8jg0VKlXP8kW9POHaG/bbpwSbpkqe4SCXVwTtYAMsKdOukT11bxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/string-format/0.5.0/string-format.min.js" integrity="sha512-umUQjNj1rAebq5zbgyU2sFNEREC48ohuUAdAwTa1qbEibzzbTnJLhj8ASNNsoKkWQ3ef+QjtZvGgVWJulLetxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.4/dist/FileSaver.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-default'</script>
+
+    <!-- context menus -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.min.js" integrity="sha512-kvg/Lknti7OoAw0GqMBP8B+7cGHvp4M9O9V6nAYG91FZVDMW3Xkkq5qrdMhrXiawahqU7IZ5CNsY/wWy1PpGTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.css" integrity="sha512-EF5k2tHv4ShZB7zESroCVlbLaZq2n8t1i8mr32tgX0cyoHc3GfxuP7IoT8w/pD+vyoq7ye//qkFEqQao7Ofrag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>CKN Visualisation</title>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js" integrity="sha512-iTgTmIgxyA2YehKNVbzLJx4j9SnuC5ihtRrtxVkXH/9nF3vXBN5YeNQp+6wufBWKD3u+roHVNOvWBMufQnBbug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- vis network -->
+    <script src="https://cdn.jsdelivr.net/npm/verge@1.10.2/verge.min.js"></script> <!--verge-->
+    
+    <div class="container-fluid"> 
+        <div class="navbar">
+            <div class="navbar-left">
+                <a class="nav-link" href="/"><span class="back-home">&#11013;</span> HOME</a>
+                <a href="/about">
+                    <button class="nav-button">ABOUT</button>
+                </a>
+                <a href="/user_guide">
+                    <button class="nav-button">USER GUIDE</button>
+                </a>
+            </div>
+            <div class="navbar-right">
+                <div class="navDropdown">
+                    <button class="dropdown-toggle" onclick="navToggleDropdown()">EXPORT</button>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><a class="dropdown-item" href="#nodes">Nodes (.csv format)</a></li>
+                        <li><a class="dropdown-item" href="#edges">Edges (.csv format)</a></li>
+                        <li><a class="dropdown-item" href="#png">Network (.png format)</a></li>
+                        <li><a class="dropdown-item" href="#report">Report (.pdf format)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+           
+        <div class="row">
+            <div class="col-xs-6 col-sm-5 col-md-5 col-lg-4 col-xl-3 col-xxl-3 border-end border-light border-2" id="configColumn">  
+                <div class="search-container">         
+                    <h1><b>GENE SEARCH</b></h1>
+                    <form class="search-form">
+                        <input type="text" name="query" class="searchbar" placeholder="search for Q.Suber gene name(s)" required >
+                        <button class="button" id="searchButton">SEARCH</button>
+                        
+                    </form>
+                    <p class="example-text">ex: LOC112008346 (NAC43), LOC111984804</p>
+                    <!--<p class="example-text">ex: LOC111995138 LOC112009257 LOC112008346</p>-->
+                   
+                </div>
+                <!--filter-->
+                <fieldset class="filter-fieldset">
+                    <legend>FILTERS</legend>
+                    
+                  
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="toggleDropdown()">Ranking Filter<img src="https://img.icons8.com/?size=100&id=40021&format=png&color=000000" alt="filter" class="btn-filter-image"></button>
+                    <div id="dropdownContent" class="dropdown-content">
+                        <label class="option">
+                            <input type="checkbox" value="0" onclick="toggleRank(0)" checked> Co-expression edges
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" value="4" onclick="toggleRank(4)" checked> Regulatory edges
+                        </label>
+                        <label class="option-directed">
+                            <input type="checkbox" value="1" onclick="toggleRank(1)"> ConnecTF
+                        </label>
+                        <label class="option-directed">
+                            <input type="checkbox" value="2" onclick="toggleRank(2)"> Cis-Elements
+                        </label>
+                        <label class="option-directed">
+                            <input type="checkbox" value="3" onclick="toggleRank(3)"> DapSeq
+                        </label>
+
+                    </div>
+                </div>
+               
+               <hr class="legend-divider">
+               <div class="slider-container">
+                    <label for="irpScoreRange">Minimum IRP Score:</label>
+                    <input type="range" id="irpScoreRange" min="0" max="1" step="0.001" value="0" oninput="syncSliderWithInput(this.value)" onchange="filterByIrpScore(this.value)">
+                    <input type="number" id="manualInput" min="0" max="1" step="0.001" value="0" oninput="syncSliderWithInput(this.value)" onchange="filterByIrpScore(this.value)">
+                </div>
+                </fieldset>
+                <!-- legend -->
+                <fieldset class="legend-fieldset">
+                    <legend>OVERVIEW</legend>
+                    <p>Nodes: <span id="node-count"><strong>0</strong></span></p>
+                    <p>Transcription Factors (TFs): <span id="tf-count"><strong>0</strong></span></p>
+                    <p>Transcription Regulators (TRs): <span id="tr-count"><strong>0</strong></span></p>
+                    <hr class="legend-divider">
+                    <p>Edges: <span id="edge-count"><strong>0</strong></span></p>
+                    <p>Direct Edges: <span id="direct-edge-count"><strong>0</strong></span></p>
+
+                    <hr class="legend-divider">
+                    <div class="slider-container">
+                            <label for="nodes_viz_limit">Set the Maximum number of nodes for display:</label>
+                            <br>
+                            <input type="range" id="irpScoreRange_viz_nodes" min="0" max="300" step="1" value="100" oninput="syncSliderWithInput_viz_nodes(this.value)" onchange="limit_viz_nodes(this.value)">
+                            <input type="number" id="manualInput_viz_nodes" min="0" max="300" step="1" value="100" oninput="syncSliderWithInput_viz_nodes(this.value)" onchange="limit_viz_nodes(this.value)">
+                            <p class="note-text"><strong>Note:</strong> This limit applies only to visualization on Searching. All data will still be included when you export. You can use it to speed up on‑screen rendering, but using the filter options is recommended for more precise control.</p>
+                        </div>
+                    
+                </fieldset>       
+            </div>
+            <div class="col-xs-6 col-sm-7 col-md-7 col-lg-8 col-xl-9 col-xxl-9" id="networkViewContainer">  
+                <div id="networkView"></div>
+            </div> 
+        </div>
+    </div>
+</body>
+</html>
+

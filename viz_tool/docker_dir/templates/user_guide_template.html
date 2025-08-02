@@ -1,0 +1,241 @@
+<!-- templates/search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css" integrity="sha512-bkB9w//jjNUnYbUpATZQCJu2khobZXvLP5GZ8jhltg7P/dghIrTaSJ7B/zdlBUT0W/LXGZ7FfCIqNvXjWKqCYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" integrity="sha512-yrLbujQF3UPLrlaavtewYmv7OFD8AGO5PS8jg0VKlXP8kW9POHaG/bbpwSbpkqe4SCXVwTtYAMsKdOukT11bxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/string-format/0.5.0/string-format.min.js" integrity="sha512-umUQjNj1rAebq5zbgyU2sFNEREC48ohuUAdAwTa1qbEibzzbTnJLhj8ASNNsoKkWQ3ef+QjtZvGgVWJulLetxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.4/dist/FileSaver.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-default'</script>
+
+    <!-- context menus -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.min.js" integrity="sha512-kvg/Lknti7OoAw0GqMBP8B+7cGHvp4M9O9V6nAYG91FZVDMW3Xkkq5qrdMhrXiawahqU7IZ5CNsY/wWy1PpGTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.css" integrity="sha512-EF5k2tHv4ShZB7zESroCVlbLaZq2n8t1i8mr32tgX0cyoHc3GfxuP7IoT8w/pD+vyoq7ye//qkFEqQao7Ofrag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>User Guide</title>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js" integrity="sha512-iTgTmIgxyA2YehKNVbzLJx4j9SnuC5ihtRrtxVkXH/9nF3vXBN5YeNQp+6wufBWKD3u+roHVNOvWBMufQnBbug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- vis network -->
+    <script src="https://cdn.jsdelivr.net/npm/verge@1.10.2/verge.min.js"></script> <!--verge-->
+    
+    <div class="container-fluid"> 
+        <div class="navbar">
+            <div class="navbar-left">
+                <a class="nav-link" href="/"><span class="back-home">&#11013;</span> HOME</a>
+                <a href="/about">
+                    <button class="nav-button">ABOUT</button>
+                </a>
+                <a href="/user_guide">
+                    <button class="nav-button">USER GUIDE</button>
+                </a>
+            </div>
+            <div class="navbar-right">
+                <div class="navDropdown">
+                    <button class="dropdown-toggle" onclick="navToggleDropdown()">EXPORT</button>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><a class="dropdown-item" href="#all_nodes">All Nodes (.csv format)</a></li>
+                        <li><a class="dropdown-item" href="#all_edges">All Edges (.csv format)</a></li>
+                        <li><a class="dropdown-item" href="#co_exp">Co-Expression Data (.csv format)</a></li>
+                        <li><a class="dropdown-item" href="#connecTF">ConnecTF Data (.csv format)</a></li>
+                        <li><a class="dropdown-item" href="#cis">Cis-Elements Data (.txt format)</a></li>
+                        <li><a class="dropdown-item" href="#dap">Dap-Seq Data (.txt format)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <header>
+            <h1><b>Gene Regulatory Network Tool - User Guide</b></h1>
+            <hr class="legend-divider">
+        </header>
+        <div id="user-guide">
+            <section id="search-query" class="guide-section">
+                <div class="text-content">
+                    <h2>Overview</h2>
+                    <p>Welcome to the User Guide for the Gene Interaction Visualization Tool. This tool is designed to help you explore, filter, and export interaction networks derived from gene expression and regulatory data.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>Search for Genes:</strong> Easily find and visualize specific genes within the network.</li>
+                        <li><strong>Filter Interactions:</strong> Refine the displayed interactions based on various criteria.</li>
+                        <li><strong>Export Data:</strong> Download network data in multiple formats for offline analysis.</li>
+                        <li><strong>Interactive Graph:</strong> Explore the network visually, with options to view detailed information about nodes and edges.</li>
+                        <li><strong>Downloadable supplementary data:</strong> Including processed output from Seidr (Co-Expression), ConnecTF, motif analysis, Dap-Seq analysis etc...</li>
+                    </ul>
+                    <p>The most important processed datasets used in this tool are available for download in the EXPORT menu on the top-right corner in this very same separator. </p>
+        </div>
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/overview.png') }}" alt="export Additional Data Example">
+                </div>
+            </section>
+
+            <section id="search-query" class="guide-section">
+                <div class="text-content">
+                    <h2>Make a Search Query</h2>
+                    <p>Use the search bar to query one or more <i>Quercus Suber</i> genes by it's Identifier. Separate each term with a space (' ').</p>
+                    <p>The result will be an interactive graphic element that will show the queried nodes(s) and it's gene neighbours.</p>
+                    <p>If more than one Gene is queried, the shortest path between them will be displayed as well</p>
+                    <p>To find Gene identifiers of Interest go to <a href="https://corkoakdb.org/data_search/gene" target="_blank">CorkOakDB Gene search</a></p>
+                </div>
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/search.png') }}" alt="Search Example">
+                </div>
+            </section>
+        
+            <section id="define-filters" class="guide-section">
+                <div class="text-content">
+                    <h2>Define Filters</h2>
+                    <p>There are two types of filters that can be used:</p>
+                    <h3>Rank Choice</h3>
+                    <p>
+                        Select interactions based on the rank of the evidence supporting them. The ranks are as follows:
+
+                        <ul class="ranking-list">
+                            <li><strong>Co-Expression edges:</strong> Co-expression related edges extracted from seidr software are shown.</li>
+                            <li><strong>Regulatory edges:</strong> All direct edges predicted by either ConnecTF, Cis-Elements or Dap-Seq analysis are shown.</li>
+                            <ul>
+                                <li><strong>ConnecTF:</strong> Direct edges found by ConnecTF are shown (to represent candidate TF-target relations based on data from model plants)</li>
+                                <li><strong>Cis-Elements:</strong> Direct edges found by the presence of cis-elements in the target promoter (to represent candidate TF-target relations based on the presence of cis-elements for a given TF in the promoter region of genes)</li>
+                                <li><strong>Dap-Seq:</strong> Connections identified by DapSeq technique. Only available for LOC111997151, LOC112008346, and LOC112030452.</li>
+
+                            </ul>
+                        </ul>
+                        Note that if you select multiple directed sub-ranks, the search will limit the edges to those that contain at least all of the selected ranks.
+                    </p>
+            
+                    <h3>IRP Score RangeSlider</h3>
+                    <p>
+                        The IRP (Inverse Rank Product) obtained when running seidr, allows you to adjust the minimum degree of confidence of the co-expression interaction either through inputing or by using a slider. 
+                        This helps refine the edges based on interaction strength, making it easier to focus on significant connections in the network.
+                    </p>
+                </div>
+            
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/ranks.png') }}" alt="Filter Example">
+                </div>
+            </section>
+                
+            <section id="understand-the-graph" class="guide-section">
+                <div class="text-content">
+                    <h2>Understand the Graph</h2>
+                    <h3>Graph Legend</h3>
+                    <p>The graph displays genes as nodes, with edges representing interactions between them. Here are the major components:</p>
+                    <ul>
+                        <div class="legend-container">
+            
+        
+                            <div class="legend-content">
+                                <!-- NODES SECTION -->
+                                <div class="legend-column">
+                                    <div class="legend-item-title">
+                                        <span>NODES</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-shape circle-query"></div>
+                                        <span>Node Searched</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-shape real-circle-query"></div>
+                                        <span>Node Searched is TF / TR</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-shape circle"></div>
+                                        <span>Nodes</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-shape box-tf"></div>
+                                        <span>Transcription Factors</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-shape box"></div>
+                                        <span>Transcription Regulators</span>
+                                    </div>
+                                </div>
+                        
+                                <!-- EDGES SECTION -->
+                                <div class="legend-column">
+                                    <div class="legend-item-title">
+                                        <span>EDGES</span>
+                                    </div>
+                                    <div class="legend-item-e">          
+                                        <span class="co-expression-edges">&#11013;</span> Direct edges
+                                    </div>
+                                    <div class="legend-item-e">
+                                        <span><hr class="direct-edges"> Co-expression egdes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </ul>
+                    <h3>Overview</h3>
+                    <p>This section shows some usefull informations about the nodes in the graph such as the total number of nodes displayed, the number of Transcription Factores and number of Transcription Regulators.</p>
+                    <p>It also provides easy access to total number of edges and the ones amog them, that are directed interactions.</p>
+                </div>
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/graph.png') }}" alt="Graph Example">
+                </div>
+            </section>
+
+            <section id="more-info" class="guide-section">
+                <div class="text-content">
+                    <h2>Nodes & Edges Information</h2>
+                    <p>You can check important information for each edge or node in the Graph either by right click followed by a click in the info box or hover the object for 1 seconds for it to pop up automaticly.</p>
+                    <p>For the nodes you can find information about the Arabidopsis Homologue, TF or TR validation.</p>
+                    <p>Regarding the edges, the available extra information is more extensive and it depends if the edge is either directed or undirected. Try and explore it!</p>
+                </div>
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/info.png') }}" alt="Export Example">
+                </div>
+            </section>
+
+           
+        
+            <section id="exports" class="guide-section">
+                <div class="text-content">
+                    <h2>Exports</h2>
+                    <p>You can export the network and related data for offline analysis or reporting. Here are the available export options:</p>
+            
+                    <h3>Nodes Table</h3>
+                    <p>Download a CSV file that represents the table of all nodes in the network, including gene identifiers and related information.</p>
+            
+                    <h3>Edges Table</h3>
+                    <p>Download a CSV file that represents the table of all edges in the network, including interaction scores and other attributes.</p>
+            
+                    <h3>Network PNG</h3>
+                    <p>Download a visual representation of the entire network as a PNG image for use in reports or presentations.</p>
+            
+                    <h3>PDF Report</h3>
+                    <p>Download a detailed PDF report containing the network summary, nodes, edges, image, and other relevant information for further analysis or documentation.</p>
+                </div>
+                <div class="image-content">
+                    <img src="{{ url_for('static', filename='images/export.png') }}" alt="Export Example">
+                </div>
+            </section>
+        </div>
+    </div>
+        
+    </body>
+</html>

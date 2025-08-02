@@ -1,0 +1,175 @@
+<!-- templates/search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css" integrity="sha512-bkB9w//jjNUnYbUpATZQCJu2khobZXvLP5GZ8jhltg7P/dghIrTaSJ7B/zdlBUT0W/LXGZ7FfCIqNvXjWKqCYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" integrity="sha512-yrLbujQF3UPLrlaavtewYmv7OFD8AGO5PS8jg0VKlXP8kW9POHaG/bbpwSbpkqe4SCXVwTtYAMsKdOukT11bxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/string-format/0.5.0/string-format.min.js" integrity="sha512-umUQjNj1rAebq5zbgyU2sFNEREC48ohuUAdAwTa1qbEibzzbTnJLhj8ASNNsoKkWQ3ef+QjtZvGgVWJulLetxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.4/dist/FileSaver.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-default'</script>
+
+    <!-- context menus -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.min.js" integrity="sha512-kvg/Lknti7OoAw0GqMBP8B+7cGHvp4M9O9V6nAYG91FZVDMW3Xkkq5qrdMhrXiawahqU7IZ5CNsY/wWy1PpGTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.css" integrity="sha512-EF5k2tHv4ShZB7zESroCVlbLaZq2n8t1i8mr32tgX0cyoHc3GfxuP7IoT8w/pD+vyoq7ye//qkFEqQao7Ofrag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>About</title>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js" integrity="sha512-iTgTmIgxyA2YehKNVbzLJx4j9SnuC5ihtRrtxVkXH/9nF3vXBN5YeNQp+6wufBWKD3u+roHVNOvWBMufQnBbug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- vis network -->
+    <script src="https://cdn.jsdelivr.net/npm/verge@1.10.2/verge.min.js"></script> <!--verge-->
+    
+    <div class="container-fluid"> 
+        <div class="navbar">
+            <div class="navbar-left">
+                <a class="nav-link" href="/"><span class="back-home">&#11013;</span> HOME</a>
+                <a href="/about">
+                    <button class="nav-button">ABOUT</button>
+                </a>
+                <a href="/user_guide">
+                    <button class="nav-button">USER GUIDE</button>
+                </a>
+            </div>
+        </div>
+        <header>
+            <h1><b>Gene Regulatory Network Tool - More Information</b></h1>
+        </header>
+        <div id="about">
+            <div class="content-container">              
+
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/schema.png') }}" alt="Gene Network Schema">
+                    <p class="image-caption">Figure 1: Overview of the pipeline created to get the Compreensive Network.</p>
+                </div>
+
+                <div class="text-section">
+                    <section id="intro">
+                        <h2>Cork Oak Gene Network</h2>
+                        <p>
+                            The Cork Oak Gene Network tool is designed to facilitate the exploration of gene interactions in 
+                            <em>Quercus suber</em>, a keystone species of Mediterranean forests. Cork oak plays a vital ecological and 
+                            economic role, yet its populations face increasing threats due to climate change and environmental stressors.
+                        </p>
+                        <p>
+                            To better understand the genetic mechanisms behind key traits like secondary growth, we processed large-scale 
+                            transcriptomic datasets and applied co-expression analysis techniques to construct a gene comprehensive Knowlage Network. 
+                            Using a combination of data mining, statistical correlation methods, and functional annotation, we identified 
+                            potential regulatory relationships between genes, offering insights into their biological roles.
+                        </p>
+                        <p>
+                            This tool builds upon publicly available data and integrates with <a href="https://www.corkoakdb.org" target="_blank">CorkOakDB</a>, 
+                            providing an interactive platform for visualizing gene interactions. By transforming static datasets into an accessible knowledge network, 
+                            we aim to support researchers in generating new hypotheses and advancing the study of cork oak genetics.
+                        </p>
+                    </section>
+                    <section id="data-extraction">
+                        <h2>1. Data Extraction</h2>
+                        <p>
+                            The process begins by retrieving sequencing data from the <a href="https://www.ncbi.nlm.nih.gov" target="_blank">NCBI Database</a> using E-utilities. This data includes SRA files containing raw sequencing data for various BioProjects related to <em>Quercus suber</em>, which were obtained through Illumina or BGISeq sequencing technologies. 
+                        </p>
+                        <p>
+                            The retrieved SRA files are then converted into the FASTQ format, a widely-used file type for storing high-throughput sequencing data. This format enables efficient analysis and processing of large sequencing datasets.
+                        </p>
+                    </section>
+                    <section id="data-preprocessing">
+                        <h2>2. Data Preprocessing</h2>
+                        
+                        <h3>2.1 Data Quality Assessment and Cleaning</h3>
+                        <p>
+                            Before analysis, the raw sequencing reads undergo a quality check using <strong>FastQC</strong> to assess their overall quality. 
+                            To enhance read accuracy, <strong>Trimmomatic</strong> is applied to remove low-quality bases and sequencing adapters. 
+                            After the cleaning process, a second <strong>FastQC</strong> run is performed to ensure that the preprocessing steps were effective.
+                        </p>
+                    
+                        <div class="section-divider"></div>
+                    
+                        <h3>2.2 Read Alignment and Quantification</h3>
+                        <p>
+                            The preprocessed reads are mapped to a reference genome using <strong>STAR</strong>, a high-performance RNA-seq aligner. 
+                            This alignment requires <em>GTF</em> and <em>FNA</em> files, which contain gene annotations and the genome sequence, respectively, 
+                            both extracted from <a href="https://www.ncbi.nlm.nih.gov" target="_blank">NCBI</a>. 
+                            After alignment, <strong>FeatureCounts</strong> is used to quantify gene expression, generating a <em>counts.txt</em> file that lists the number of reads mapped to each gene.
+                        </p>
+                    </section>
+                    <section id="Data-normalization">
+                        <h2>3. Data Normalization</h3>
+                        <p>
+                            Gene expression data must often be adjusted for sequencing depth and other biases. This normalization is achieved using 
+                            <strong>DESeq</strong>, which processes the count data and adjusts expression values accordingly. 
+                            The resulting normalized data is crucial for downstream network inference.
+                        </p>
+                    </section>
+                    <section id="network-prediction">
+                        <h2>4. Network Prediction</h2>
+                        <p>
+                            With the normalized expression data, <strong>Seidr</strong> is used to infer a gene co-expression network through a 
+                            <strong>multi-method approach</strong> that combines several algorithms. This step plays a crucial role in uncovering 
+                            interactions that may drive important biological processes, providing insights into gene co-expression relationships.
+                        </p>
+                    </section>
+                    <section id="gene-annotation">
+                        <h2>5. Gene Annotation and TF Identification</h2>
+                        <p>
+                            A gene annotation file (CSV) extracted from NCBI provides additional functional information about genes in the dataset, 
+                            offering insight into the route of influence of such nodes. 
+                        </p>
+                        <p>
+                            A list of putative transcription factors (TFs) for <i>Quercus suber</i> was acquired in project X 
+                            <span class="citation">[REFERENCE]</span>. Further clarification on this was discussed with Pedro.
+                        </p>
+                    </section>
+                    <section id="tf-gene-interaction">
+                        <h2>6. TF-Gene Interaction Prediction</h2>
+                        <p>
+                            To refine the network and identify regulatory interactions, ConnecTF is used. This tool integrates transcription factor 
+                            information to link regulatory elements with their potential gene targets for some species, including 
+                            <i>Arabidopsis thaliana</i>. 
+                        </p>
+                        <p>
+                            This step of the analysis was performed through homology.
+                        </p>
+                    </section>
+                    <section id="motif-enrichment">
+                        <h2>7. Motif Enrichment Analysis</h2>
+                        <p>
+                            To further validate regulatory interactions, FIMO Motif Analysis searches for cis-regulatory motifs 
+                            in promoter regions of the putative target genes, providing additional support for predicted 
+                            TF-gene interactions.
+                        </p>
+                    </section>
+                    <section id="output-generation">
+                        <h2>8. Output Generation for Visualization</h2>
+                        <p>
+                            Finally, the processed network data is formatted into <code>edges.csv</code> and <code>nodes.csv</code>, 
+                            which serve as inputs for the visualization tool. These files define the network structure, linking 
+                            genes and transcription factors based on their inferred relationships.
+                        </p>
+                    </section>
+                    
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
