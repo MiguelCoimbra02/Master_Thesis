@@ -234,7 +234,7 @@ Although my dataset contains both directed and undirected edges, Neo4j only supp
 To process the data more easily, I convert the extracted database data into a NetworkX object, which can be either a directed or undirected graph. I use a MultiDiGraph, which allows multiple directed edges between the same pair of nodes. This choice enables me to represent both undirected and directed relationships between the same two nodes within the same structure.
 
 #### The following schema presents a simplified representation of the process, from loading the main webpage to generating the visualization.
-<img src="../../viz_tool/static/images/readme_tool_search.png" alt="Search Schema" width="500">
+<img src="viz_tool/docker_dir/static/images/readme_tool_search.png" alt="Search Schema" width="500">
 
 ## Features
 This Gene Interaction Vizualisation Tool offers some important Features like:
