@@ -27,13 +27,13 @@ python load_neo4j_db.py \
 
 From the directory containing the docker-compose.yml file, run:
 ```bash
-docker compose up --build
+docker-compose up --build
 ```
 
 ### Subsequent Runs
 Once the data is loaded, you can start the Canopy application with:
 ```bash
-docker compose up
+docker-compose up
 ```
 
 ## Table of Contents
