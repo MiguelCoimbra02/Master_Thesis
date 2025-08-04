@@ -196,7 +196,7 @@ function drawNetwork(graphData){
     //https://visjs.github.io/vis-network/docs/network/#options
 
     
-    var options = {height: '90%',
+    var options = {height: '100%',
         interaction: {
             navigationButtons: true,
             keyboard: true,
@@ -220,7 +220,7 @@ function drawNetwork(graphData){
                         chosen: {
                             label: hover_edge_label
                         },
-                        color: {color: '#6d468f', hover: '#513cd6', highlight: '#513cd6'},
+                        color: {color: '#233a48', hover: '#1c2e39 ', highlight: '#1c2e39 '},
                         hoverWidth: 2.2,
                         width: 2
                         },
@@ -294,7 +294,7 @@ function hover_node_label(values, id, selected, hovering) {
 
 function hover_node(values, id, selected, hovering) {
   values.borderWidth = 2.2;
-  values.borderColor = '#513cd6'
+  values.borderColor = '#1c2e39'
   // values.color = 'blue'
 }
 

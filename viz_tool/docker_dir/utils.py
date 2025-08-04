@@ -136,9 +136,7 @@ def autocomplete_graph_data(g, edges_to_check=None, min_co_exp_width = 1, max_co
 
 
 def filter_edges_nodes(graph, query_nodes, tf_ranks, rangeSlider_co_exp):
-    print('tf_ranks', tf_ranks)
     g = graph.copy()
-    print(g, 'graph')
     to_remove_e1 = []
     to_remove_n1 = set()  # Set to hold nodes to be removed
     if tf_ranks == [] and rangeSlider_co_exp == 0:
@@ -315,13 +313,13 @@ def graph2json(g, query_nodes=[]):
         nodeData['label'] = nodeid
         
         if nodeData['isTF'] == '1': #in case isTF
-            nodeData['color'] = {'border': '#afaba2',
-                                 'background': '#f5be15'}
+            nodeData['color'] = {'border': '#436e67',
+                                 'background': '#6c9585'}
             nodeData['shape'] = 'dot'
         
         elif nodeData['isTR'] == '1': #in case isTR
-            nodeData['color'] = {'border': '#afaba2',
-                                 'background': '#79e34e'}
+            nodeData['color'] = {'border': '#abbb95 ',
+                                 'background': '#bed0a6'}
             nodeData['shape'] = 'dot'
                 
         for key, value in nodeData.items():
@@ -329,8 +327,8 @@ def graph2json(g, query_nodes=[]):
                 nodeData[key] = None  # Use None instead of null for JSON serialization
 
         if nodeid in query_nodes:
-            nodeData['color'] = {'border': "#e3530b",
-                                 'background': '#f09d62'
+            nodeData['color'] = {'border': "#233a48",
+                                 'background': '#ffa500'
                                 } 
             nodeData['borderWidth'] = 2
         nlist.append(nodeData)
