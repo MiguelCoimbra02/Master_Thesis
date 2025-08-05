@@ -206,7 +206,7 @@ This project utilizes previously available data from other studies and analyses.
 
 
 # Canopy
-## Tool Overview
+## Overview
 This tool follows a client-server architecture, where the backend handles data processing and retrieval, while the frontend provides an interactive user interface. The backend consists of a Flask application that communicates with a Neo4j database to manage and query gene interaction data. Additionally, Redis is used for caching and optimizing data retrieval.
 
 The Flask backend exposes a RESTful API, which the frontend interacts with using AJAX. These API endpoints allow the frontend to send requests and retrieve data dynamically, enabling real-time updates without requiring full page reloads.
@@ -220,10 +220,13 @@ One of its key functionalities is Neo4j integration, which allows the backend to
 
  #### Main Routes
  - `/` - Renders the main webpage
- - `/search` - Processes user queries, retrieves gene interactions, filters results, and stores the subgraph in Redis.
- - `/expand` - Expands a node in the network by retrieving additional interactions and updates the graph.
- - `/report` - Generates a PDF report with queried genes, edges, filters and a network image.
--  `/about` & `user_guide` - Render static pages for additional information.
+ - `/search` -This route accepts a list of query genes, TF ranks, and an IRP threshold. It retrieves the corresponding subgraph from Neo4j, applies the specified filters, stores the result in Redis, and returns the filtered graph as a JSON response.
+ - `/expand` - Expands a selected node by querying its direct neighbors from Neo4j, appending them to the existing graph stored in Redis, and applying the same filters to return an updated subgraph.
+ - `/report` - Generates a detailed PDF report that includes user query parameters, data tables (nodes and edges), and a snapshot of the current graph visualization.
+-  `Template routes` - Render static pages for additional information.
+
+#### The following schema presents a simplified representation of the search Process.
+<img src="viz_tool/docker_dir/static/images/search_route.png" alt="Search Schema" width="500">
 
 ### Neo4J Database
 Neo4j is a graph database designed to store and manage highly connected data. Unlike traditional relational databases, which use tables and rows, Neo4j represents data as nodes (entities) and edges (relationships), making it ideal for storing gene interactions. It uses the Cypher query language to efficiently retrieve and analyze relationships, enabling fast and flexible data exploration.
@@ -233,8 +236,6 @@ Although my dataset contains both directed and undirected edges, Neo4j only supp
 ### NetworkX
 To process the data more easily, I convert the extracted database data into a NetworkX object, which can be either a directed or undirected graph. I use a MultiDiGraph, which allows multiple directed edges between the same pair of nodes. This choice enables me to represent both undirected and directed relationships between the same two nodes within the same structure.
 
-#### The following schema presents a simplified representation of the process, from loading the main webpage to generating the visualization.
-<img src="viz_tool/docker_dir/static/images/readme_tool_search.png" alt="Search Schema" width="500">
 
 ## Features
 This Gene Interaction Vizualisation Tool offers some important Features like:
