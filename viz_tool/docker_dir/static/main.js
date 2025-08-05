@@ -173,6 +173,8 @@ function drawNetwork(graphData){
     netviz.edges = new vis.DataSet(graphData.network.edges);
     // create a network
     var container = document.getElementById('networkView');
+    container.style.backgroundImage = 'none';
+    container.style.opacity = '1';
 
         // provide the data in the vis format
     var data = {
@@ -196,7 +198,7 @@ function drawNetwork(graphData){
     //https://visjs.github.io/vis-network/docs/network/#options
 
     
-    var options = {height: '100%',
+    var options = {height: '90%',
         interaction: {
             navigationButtons: true,
             keyboard: true,
