@@ -152,13 +152,15 @@ $(document).ready(function() {
             }   
           },
 
-          error: function(jqXhr) {
-            if (jqXhr.responseJSON && jqXhr.responseJSON.error) {
-                alert(jqXhr.responseJSON.error);
-            } else {
-                alert('Server error while loading the network.');
+          error: function(xhr, status, error) {
+            console.error('Search failed:', xhr.responseText);
+    
+            // Automatically reload the page if a 400 error occurs
+            if (xhr.status === 400) {
+                alert('No valid nodes provided. Reloading the page...');
+                location.reload();  // Refresh the page
             }
-          }
+        }
     });
     scale();
     initContextMenus();   

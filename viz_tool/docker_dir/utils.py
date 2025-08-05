@@ -147,7 +147,6 @@ def filter_edges_nodes(graph, query_nodes, tf_ranks, rangeSlider_co_exp):
     else:  
         for s, t, k, d in g.edges(keys=True, data=True):  
             tf_ranks_copy = tf_ranks.copy()
-            print('rf rank of edge: ', d['tf_rank'])
             if k == 0:  
                 if 0 not in tf_ranks_copy:
                     to_remove_e1.append((s, t, k))
@@ -169,11 +168,9 @@ def filter_edges_nodes(graph, query_nodes, tf_ranks, rangeSlider_co_exp):
                     #RETOMAR AQUI
                     
                     tf_rank_list = ast.literal_eval(d['tf_rank']) if isinstance(d['tf_rank'], str) else d['tf_rank']
-                    print('rf rank of edge: ',tf_rank_list)
                     if not all(rank in tf_rank_list for rank in tf_ranks_copy):  
                         to_remove_e1.append((s, t, k))
 
-        print('tf_rank of the search',tf_ranks_copy)
         g.remove_edges_from(set(to_remove_e1))
         
         for node in g.nodes():
@@ -217,8 +214,6 @@ def filter_edges_nodes(graph, query_nodes, tf_ranks, rangeSlider_co_exp):
 
 def get_top_edges_by_irpscore(graph, top_n = 100):
     g = nx.MultiGraph(graph.copy())
-    print('number_viz_nodes', top_n)
-    print(g.number_of_nodes())
     if g.number_of_nodes() <= top_n:
         return g
     
@@ -269,9 +264,6 @@ def expanded_graph4display(g_b4_expand, g_after_expand, top_n=50):
         if node_after not in nodes_g_b4_expand:
             new_nodes.add(node_after)
 
-    print('new_edges', new_edges)
-    print('len_new edges', len(new_edges))
-    print('len_new nodes', len(new_nodes))
 
     if len(new_nodes) <= top_n:
         return g_after_expand
@@ -286,8 +278,6 @@ def expanded_graph4display(g_b4_expand, g_after_expand, top_n=50):
 
         # Sort by irp_score
         irp_score_sorted = sorted(new_edges, key=lambda edge: edge[3], reverse=True)
-        print('irp_score_sorted', irp_score_sorted)
-        print('len irp_score_sorted', len(irp_score_sorted))
 
         # Add top scoring nodes
         for u, v, k, irp_score in irp_score_sorted:
@@ -301,7 +291,6 @@ def expanded_graph4display(g_b4_expand, g_after_expand, top_n=50):
         if node not in nodes_2_keep:
             g_after_expand.remove_node(node)
 
-    print('len nodes2keep', len(nodes_2_keep))
     return g_after_expand
 
 
