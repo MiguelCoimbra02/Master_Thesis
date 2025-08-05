@@ -32,19 +32,23 @@ app = Flask(__name__)
 CORS(app)
 
 # Using the default Redis configuration
-r = redis.StrictRedis(host='localhost', port=6379, db=0)
+redis_host = os.getenv('REDIS_HOST', 'localhost')
+redis_port = int(os.getenv('REDIS_PORT', 6380))
+
+r = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 
 
 @app.route('/')
 def main():
     return render_template('index.html')
 
+
 # Search route to handle POST requests from the JS
 @app.route('/search', methods=['POST'])
 def search():
-    
+    print('Received POST request on /search')
     try:
-        # Retrieve the JSON data from the request
+        # Retrieve the JSON data from the request        
         data = request.get_json(force=False)
         print('DATA RECEIVED IN SEARCH: ', data)
         
@@ -62,6 +66,7 @@ def search():
         
         #----- Extract subgraph data only for valid nodes -----
         nodes_data, edges_data, max_result = neo4_service.get_subgraph_data(valid_nodes)
+        print('EDGES DATA HERE - ',edges_data)
     
         #----- Create a NetworkX graph from the extracted neo4j data -----
         subgraph_flask = create_graph(nodes_data, edges_data)
@@ -192,6 +197,8 @@ def export_edges():
         
         subgraph_flask = pickle.loads(r.get('graph_key_exports'))
         edges = subgraph_flask.edges(keys=True, data=True)
+        print('edges_export', edges)
+        print(len(edges))
 
         if not edges:
             return "No edges to export.", 400
@@ -203,6 +210,7 @@ def export_edges():
         writer.writerow(header)
         for u, v, k, data in edges:
             if data.get('interaction') == 'interacts with':
+                print('ENTREI AQUI')
                 writer.writerow([
                     data.get('id', '--'),
                     '--',
@@ -217,6 +225,7 @@ def export_edges():
                 ])
             
             else:
+                print('ENTREI AQUI 2')
                 writer.writerow([
                     data.get('id', '--'),
                     data.get('source', '--'),
@@ -258,6 +267,7 @@ def expand():
     subgraph_expanded, new_edges, max_result = neo4_service.expand_node(subgraph_flask, query_node)
 
     subgraph_completed = autocomplete_graph_data(subgraph_expanded, new_edges)  # Autocomplete edges for the new ones, the others already have this information
+    print(subgraph_completed.edges(data=True))
     filtered_sub_graph = filter_edges_nodes(subgraph_completed, [query_node], tf_ranks, slideRange_co_exp)
     
     graph4display = expanded_graph4display(subgraph_flask,filtered_sub_graph)
@@ -292,6 +302,7 @@ def download_file(filename):
         # Ensure the filename is safe
         safe_filename = os.path.basename(filename)
         file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], safe_filename)
+        print('file_path', file_path)
         
         if not os.path.exists(file_path):
             return jsonify({"error": "File not found"}), 404
