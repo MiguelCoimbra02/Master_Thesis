@@ -1,12 +1,12 @@
-# Knowledge Network creation and Cork Oak Gene interactions Visualisation and Retrieval Tool (Canopy)
+# Knowledge Network creation and Cork Oak Gene interactions Visualization and Retrieval Tool (Canopy)
 
-Welcome to the Cork Oak Gene Interactions Visualization Tool! Canopy is designed to retrieve and visualize gene regulatory networks in Quercus suber (cork oak), providing valuable insights into gene interactions. This project was developed as part of a thesis for the Master’s program in Bioinformatics and Computational Biology at the Faculdade de Ciências, Universidade de Lisboa.
+Welcome to the Cork Oak Gene Interactions Visualization Tool! Canopy is designed to retrieve and visualize gene regulatory networks (GRN) in Quercus suber (cork oak), providing valuable insights into gene interactions. This includes Gene Co-expression links (GCN) and hints of Transcription Factor (TF) direct interactions with genes. This project was developed as part of a thesis for the Master’s program in Bioinformatics and Computational Biology at the Faculdade de Ciências, Universidade de Lisboa.
 
-## Running canopy
+## Canopy deployement
+A Docker Compose setup is available for local deployment. (Canopy will be soon integrated into CorkOakDB)
 
-Canopy is intended to be integrated into CorkOakDB in the future. In the meantime, while the integration is not yet public, a Docker Compose setup is available for local deployment.
 ### First-Time Setup: Running Canopy for the First Time
-Before starting the application, you need to load the initial data into the Neo4j database.
+To add a new (updated) GRN to Canopy, load the initial data into the Neo4j database.
 
 #### 1. Load **nodes** into Neo4j
 Run this command to load the nodes from a CSV file (located in Neo4j's import-accessible directory):
@@ -38,11 +38,11 @@ docker-compose up
 
 ## Table of Contents
 1. [Project Structure](#project-structure)
-2. [CKN Contruction](#ckn-construction)
-   - [Requirements CKN](#requirements-ckn)
-   - [Usage Instructions CKN](#usage-instructions-ckn)
-   - [Overview and Scripts CKN](#overview-and-scripts-ckn)
-   - [Data Sources CKN](#data-sources-ckn)
+2. [GRN Contruction](#grn-construction)
+   - [Requirements GRN](#requirements-grn)
+   - [Usage Instructions GRN](#usage-instructions-grn)
+   - [Overview and Scripts GRN](#overview-and-scripts-grn)
+   - [Data Sources GRN](#data-sources-grn)
 3. [Canopy](#canopy)
    - [Overview](#overview)
    - [Features](#features)
@@ -50,10 +50,7 @@ docker-compose up
 
 
 ## Project Structure
-
-To continue go to https://tree.nathanfriend.com/?s=(%27options!(%27fancy2~fullPath!false~trailingSlash2~rootDot2)~4(%274%27bin.da5BioProjects_info*cis_elemet6fimo_out3gene6promoter6scaffold6TF_motif6-fas5connectTF3output*dap_seq*da5030_annotation30_index*proteome*scripts*seidr_output.viz_tool*static*templates*images*..%20%27)~version!%271%27)*.--%20%20.%5Cn0genome2!true3*-4source!5ta*6s3%01654320.-*
-
-
+The following schematic illustrates the directory structure used throughout this work.
 
 ```
 .
@@ -82,13 +79,13 @@ To continue go to https://tree.nathanfriend.com/?s=(%27options!(%27fancy2~fullPa
     ├── templates
     └── data
 ```
-Important to notice that some Directories will be created along side the running of some scripts as for exemple the BioProjects directories...
+Important to notice that some Directories will be created after running some scripts, for example the BioProjects directories.
 
 ### Directory Builder
 - `create_directories.sh`: Builds the necessary directories for the project
 
-# CKN Construction
-## Requirements CKN
+# GRN Construction
+## Requirements GRN
 All the tools and versions used are available in a Requirements.txt file. Here is a simple representation.
 
 - **Screen** - (for background activities; Optional but very usefull)
@@ -97,7 +94,7 @@ All the tools and versions used are available in a Requirements.txt file. Here i
 - **FastQC**
 - **Trimmomatic**
 - **STAR** - (for RNA-seq alignment)
-- **Subread** - (for RNA-seq alignment)
+- **Subread** - (for RNA-seq read count)
 - **BamTools** - (for BAM file manipulation)
 - **Python**
   - pandas
@@ -113,7 +110,7 @@ All the tools and versions used are available in a Requirements.txt file. Here i
 - **BEDTools** - (for processing genomic data)
 - **FIMO (MEME Suite)** - (for motif matching)
 
-## Usage Instructions CKN
+## Usage Instructions GRN
 ### 1. Selecting BioProjects
 
 `./fetch_ncbi_BioP.sh` or `./fetch_ncbi_BioP.sh 'Custom NCBI Query'` - Gather information on the BioProjects to extract RNASeq data
@@ -147,8 +144,13 @@ For Cis elements analysis:
  ### 7. Generating nodes and edges Tables
  `./generate_edges_nodes_tables.py`
 
-## Overview and Scripts CKN 
-In this section, I developed and enhanced an automated pipeline to construct a comprehensive knowledge network (CKN) for Quercus suber (cork oak), with a particular focus on gene interactions related to secondary growth. The pipeline is designed to streamline the generation and refinement of the CKN, providing efficient and accurate insights into the gene interactions that play a key role in cork oak's secondary growth. This section can be divided into 5 major steps:
+## Overview and Scripts GRN 
+
+In this section, I developed and enhanced an automated pipeline to construct a Gene Regulatory Network (GRN) for cork oak, with a particular focus on gene interactions related to secondary growth. The pipeline is designed to streamline the generation and refinement of the GRN, providing efficient and accurate insights into the gene interactions that play a key role in cork oak's secondary growth. This section can be divided into 5 major steps:
+
+
+<img src="viz_tool/docker_dir/static/images/schema.png" alt="GRN Schema" width="500">
+
 
 ### 1. Aggregation and preprocessing of RNA-seq expression data
 
@@ -177,22 +179,22 @@ In this section, I developed and enhanced an automated pipeline to construct a c
 
 
 ### 3. ConnecTF software to find putative TF-Target interactions in my co-expression Network
-ConnecTF is a database designed to predict and analyze transcription factor (TF)-target gene interactions by integrating various regulatory datasets. It identifies putative regulatory relationships using TF-binding evidence from sources such as DAP-seq, ChIP-seq, and motif enrichment analysis. ConnecTF enables researchers to filter and prioritize TF-target interactions based on experimental support, co-expression, and functional annotations, facilitating the study of gene regulatory networks in plants such as Arabidopsis, Maize and Rice.
+ConnecTF is a database designed to predict and analyze TF-target gene interactions by integrating various regulatory datasets. It identifies putative regulatory relationships using TF-binding evidence from sources such as DAP-seq, ChIP-seq, and motif enrichment analysis. ConnecTF enables researchers to filter and prioritize TF-target interactions based on experimental support, co-expression, and functional annotations, facilitating the study of gene regulatory networks in plants such as Arabidopsis, Maize and Rice.
 
 - **`connecTF.py`**: Utility script with the necessary functions to get the inputs into ConnecTF:
-  - **Target Network**: Generates a network with the arabidópsis homologues and with columns: `source`, `interaction`, `target`, and an optional `score` column.
+  - **Target Network**: Generates a network with the Arabidópsis homologues and with columns: `source`, `interaction`, `target`, and an optional `score` column.
   - **Target Gene List**: Defines a list of target genes to narrow down the output size.
   - **Filter Gene List**: Filters the network based on a given list of genes to refine the results.
   
-  After generating the predictions, the script transforms the Arabidopsis homologs in the ConnecTF network to their corresponding genes in *Quercus suber* using a Blast_p file between arabidópsis and Quercus Suber.
+  After generating the predictions, the script transforms the Arabidopsis homologs in the ConnecTF network to their corresponding genes in cork oak using a Blast_p file between arabidópsis and cork oak.
 
 ### 4. Cis-elements analysis to find TF motifs in the genes of the network
 
-- **`get_tf_motif_matrix.sh`**: Downloads transcription factor (TF) motif files from PlantTFDB, maps Arabidopsis TFs to corresponding Quercus suber genes using a provided match file.
-- **`get_all_promoters_sequeces.sh`**: Extracts gene coordinates from a Cork Oak genome annotation file (gff), determines scaffold sizes, and retrieves promoter regions (default: 2kb upstream). It then generates BED files with promoter sequences using BEDTools and outputs them in FASTA format for further analysis.
-- **`get_promoter_sequece.sh`**: Processes Cork Oak promoter sequences by extracting scaffold names, sequences, and associated gene annotations. It merges promoter sequences from a BED file with gene information from a coordinate file, formatting the data into a structured CSV file for further analysis.
-- **`TFBS_promoter_matcher.py`**: Filters a co-expression network to find target genes regulated by a given transcription factor (TF) and extracts their corresponding promoter sequences, saving them in FASTA format. (It's runned in `fimo.py`)
-- **`fimo.py`**: Validates transcription factor (TF) targets by checking for transcription factor binding sites (TFBS) in their promoter regions. It processes a co-expression network, extracts target gene promoter sequences, and uses FIMO (from the MEME Suite) to identify motif matches. The results are compiled into an output table indicating whether a TF-target interaction is validated based on motif presence.
+- **`get_tf_motif_matrix.sh`**: Downloads cis-elements motif files from PlantTFDB, maps Arabidopsis TFs to corresponding cork oak genes using a provided match file.
+- **`get_all_promoters_sequeces.sh`**: Extracts gene coordinates from a cork oak genome annotation file (gff), determines scaffold sizes, and retrieves promoter regions (default: 2kb upstream). It then generates BED files with promoter sequences using BEDTools and outputs them in FASTA format for further analysis.
+- **`get_promoter_sequece.sh`**: Processes cork oak promoter sequences by extracting scaffold names, sequences, and associated gene annotations. It merges promoter sequences from a BED file with gene information from a coordinate file, formatting the data into a structured CSV file for further analysis.
+- **`TFBS_promoter_matcher.py`** (required for fimo.py): Filters a co-expression network to find target genes regulated by a given TF and extracts their corresponding promoter sequences, saving them in FASTA format. 
+- **`fimo.py`**: TF targets by checking for transcription factor binding sites (TFBS) in their promoter regions. It processes a co-expression network, extracts target gene promoter sequences, and uses FIMO (from the MEME Suite) to identify motif matches. The results are compiled into an output table indicating whether a TF-target interaction is validated based on motif presence.
 
 ### 5. Dap-Seq data Introduction
 - **`dap_seq.sh`**: Reads multiple text files containing target genes for each gene, creates a dataframe with gene_id and TARGET columns representing gene-target interactions, and saves it as a tab-separated file (dap_seq.txt). Only have DapSeq data for three genes: LOC111997151; LOC112008346; LOC112030452
@@ -200,7 +202,7 @@ ConnecTF is a database designed to predict and analyze transcription factor (TF)
 ### 6. Nodes & Edges data tables
 - **`generate_edges_nodes_tables.py`**: Extracts information from all the above methods to create 2 final tables(nodes and edges) with all the necessary information from where the database will extract the data to load later.
 
-## Data Sources CKN
+## Data Sources GRN
 This project utilizes previously available data from other studies and analyses. Rather than generating new datasets, I have integrated existing resources that were either publicly accessible or derived from prior work conducted for future analyses. The two main appropriated data sets were TF TR Data and blast data
 
 
@@ -248,7 +250,7 @@ When the user submits a query with the Cork Oak genes of interest, the system ch
  - **IRP Score Range Slider**: This filter allows the user to select the minimum IRP (co-expression value used by Seidr) score for
 the edges displayed in the graph
 
- - **Rank Filter**: This filter allows the user to choose the type / process used to obtain a edge. There are 2 major Rank options:
+ - **Rank Filter**: This filter allows the user to choose the type / process used to obtain an edge. There are 2 major Rank options:
    
    - Co-Expression: Co-expression related edges extracted from seidr software are shown.
    - Regulatory edges: All direct edges predicted by either ConnecTF, Cis-Elements or Dap-Seq analysis are shown. 
@@ -257,8 +259,7 @@ the edges displayed in the graph
      - Dap-Seq: Connections identified by DapSeq technique. Only available for LOC111997151, LOC112008346, and LOC112030452.
 
 ### **Interactive Graph**
-For network visualization, the vis-network library (https://github.com/visjs/vis-network) will
-be used because of its user-friendly interface, extensive customization options, and support for clustering,
+For network visualization, the vis-network library (https://github.com/visjs/vis-network) was used because of its user-friendly interface, extensive customization options, and support for clustering,
 which aids in managing larger networks. The width of the edges will vary based on the IRP score for
 co-expressed edges and the method, and number of methods, to achieve the direction for directed edges. There is also the option to
 ask for an information table for each node and edge.
@@ -279,5 +280,5 @@ Download a visual representation of the entire network as a PNG image for use in
 Download a detailed PDF report containing the network summary, nodes, edges, image, and other relevant information for further analysis or documentation.
 
 ## Data Sources VizTool
-The visualization tool was inspired by the Stress Knowledge Map project [DOI: 10.1016/j.xplc.2024.100920] available at https://skm.nib.si/ckn/?identifier=AT1G64280&identifier=AT3G22400&identifier=AT3G14440, and by publicly available work hosted at https://github.com/vpodpecan/ckn_viz. These resources provided valuable design and structural insights for the development of the cork oak gene interaction visualization platform.
+The visualization tool was adapted based on Stress Knowledge Map project [DOI: 10.1016/j.xplc.2024.100920] available at https://skm.nib.si/ckn/?identifier=AT1G64280&identifier=AT3G22400&identifier=AT3G14440, and by publicly available work hosted at https://github.com/vpodpecan/ckn_viz. These resources provided valuable design and structural insights for the development of the cork oak gene interaction visualization platform.
 
