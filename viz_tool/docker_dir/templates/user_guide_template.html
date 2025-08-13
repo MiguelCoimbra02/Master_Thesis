@@ -183,7 +183,7 @@
                                         <span>EDGES</span>
                                     </div>
                                     <div class="legend-item-e">          
-                                        <span class="co-expression-edges">&#11013;</span> Direct edges
+                                        <span class="co-expression-edges">&#11013;</span> Regulatory edges</span>
                                     </div>
                                     <div class="legend-item-e">
                                         <span><hr class="direct-edges"> Co-expression egdes</span>
@@ -194,9 +194,11 @@
                 
                     </ul>
                     <h3>Overview</h3>
-                    <p>This section shows some usefull informations about the nodes in the graph such as the total number of nodes displayed, the number of Transcription Factores and number of Transcription Regulators.</p>
-                    <p>It also provides easy access to total number of edges and the ones amog them, that are directed interactions.</p>
-                </div>
+                    <p>This section shows some useful information about the nodes in the graph, such as the total number of nodes displayed, the number of Transcription Factors, and the number of Transcription Regulators.</p>
+                    <p>It also provides easy access to the total number of edges, including those that represent directed interactions.</p>
+                    <p>There is also another range slider that provides even more control over the maximum number of nodes displayed. After a search, if the number of nodes exceeds the set maximum, nodes that are co-expressed with higher IRP, as well as nodes that have both co-expression and regulatory interactions, will be prioritized.</p>
+
+                                    </div>
                 <div class="image-content">
                     <img src="{{ url_for('static', filename='images/graph.png') }}" alt="Graph Example">
                 </div>
