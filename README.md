@@ -2,6 +2,9 @@
 
 Welcome to the Cork Oak Gene Interactions Visualization Tool! Canopy is designed to retrieve and visualize gene regulatory networks (GRN) in Quercus suber (cork oak), providing valuable insights into gene interactions. This includes Gene Co-expression links (GCN) and hints of Transcription Factor (TF) direct interactions with genes. This project was developed as part of a thesis for the Master’s program in Bioinformatics and Computational Biology at the Faculdade de Ciências, Universidade de Lisboa.
 
+[<img src="https://img.youtube.com/vi/y3jp3YaC5xI/hqdefault.jpg" alt="CANOPY - Cork Oak Gene Interactions Visualization Tool" width="480" style="border:1px solid #ccc;"/>](https://youtu.be/y3jp3YaC5xI)
+
+
 ## Canopy deployement
 A Docker Compose setup is available for local deployment. (Canopy will be soon integrated into CorkOakDB)
 
