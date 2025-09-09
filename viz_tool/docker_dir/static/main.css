@@ -527,7 +527,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .co-expression-edges{
     font-size: 30px;
-    color:#6d468f;
+    color:#233a48;
     transform: scaleY(2);
     margin-right: 5px;
     vertical-align: middle;
@@ -538,7 +538,7 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 27px;
     height: 8px;
     border: none;
-    background-color: #6d468f !important;
+    background-color: #233a48 !important;
     margin-right: 5px;
     display: inline-block;
     vertical-align: middle;
@@ -574,13 +574,11 @@ input[type="number"]::-webkit-inner-spin-button {
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .box {
-    background-color: #79e34e;
-    border: 1px solid #afaba2;
+    background-color: #abbb95;
     border-radius: 50%;
 }
 .box-tf {
-    background-color: #f5be15;
-    border: 1px solid #afaba2;
+    background-color: #436e67;
     border-radius: 50%;
 }
 

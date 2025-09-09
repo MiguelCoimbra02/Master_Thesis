@@ -88,7 +88,6 @@ def autocomplete_graph_data(g, edges_to_check=None, min_co_exp_width = 1, max_co
             g[source][target][key]['arrows'] = {'to': {'enabled': True, 'scaleFactor': 0.5}}
             g[source][target][key]['source'] = source  # Add source metadata
             g[source][target][key]['target'] = target  # Add target metadata
-            print('aliiiii')
         
         # Case 2: target regulates source
         elif str(g[source][target][key]['source']) == str(target) and target_is_tf:
@@ -96,7 +95,6 @@ def autocomplete_graph_data(g, edges_to_check=None, min_co_exp_width = 1, max_co
             g[source][target][key]['arrows'] = {'to': {'enabled': True, 'scaleFactor': 0.5}}  
             g[source][target][key]['source'] = target  # Add source metadata
             g[source][target][key]['target'] = source  # Add target metadata
-            print('aquiiiiii')
         
         else:
             edges_to_remove.append((source, target, key))

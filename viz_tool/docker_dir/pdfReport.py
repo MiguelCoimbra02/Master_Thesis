@@ -17,7 +17,7 @@ class PDFReport(FPDF):
     def header(self):
         queried_genes_strings = [str(gene) for gene in self.queried_genes]
         self.set_font('Helvetica', 'B', 14)  # Use Helvetica
-        self.cell(0, 10, f'Gene Interaction Report - {", ".join(queried_genes_strings)}', new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='C')
+        self.cell(0, 10, f' CANOPY Gene Interaction Report - {", ".join(queried_genes_strings)}', new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='C')
         self.cell(0, 10, f'Date: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='C')
         self.ln(10)
 
