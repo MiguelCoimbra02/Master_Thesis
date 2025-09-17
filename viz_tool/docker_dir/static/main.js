@@ -62,14 +62,10 @@ $(document).ready(function() {
             downloadFile('QS_output_final.csv');
         } else if ($(this).attr('href') == '#cis') {
             downloadFile('ALL_TF_Matches_Output.txt'); 
-        } else if ($(this).attr('href') == '#dap') {
-            downloadFile('dap_seq.txt');
         } else if ($(this).attr('href') == '#all_nodes') {
             downloadFile('nodes.csv');
         } else if ($(this).attr('href') == '#all_edges') {
             downloadFile('edges.csv');
-        } else if ($(this).attr('href') == '#co_exp') {
-            downloadFile('network.csv');
         }
     });
 
@@ -885,6 +881,12 @@ function generate_report() {
             }
         });
 
+        let tf_tr_counts = updateNodeCount_TF_TR(netviz.nodes);
+        let directEdgesCount = updateDirect_Edges_count(netviz.edges);
+        let n_nodes = netviz.nodes.get().length;
+        let n_edges = netviz.edges.get().length;
+
+       
         // Capture the network image
         var canvas = document.querySelector('.vis-network canvas');
         var dataURL = canvas.toDataURL("image/png");
@@ -893,18 +895,22 @@ function generate_report() {
         $.ajax({
             url: '/report',
             type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            dataType: '',
+            contentType: 'application/json',
             data: JSON.stringify({
                 'quried_nodes': Array.from(validNodes),
                 'tf_ranks': Array.from(selectedRanks),  // Convert Set to Array before sending
                 'rangeSliderValue': parseFloat(rangeSliderValue),
+                'tf_count': tf_tr_counts.numberOfTF,
+                'tr_count': tf_tr_counts.numberOfTR,
+                'direct_edges_count': directEdgesCount,
+                'n_nodes': n_nodes,
+                'n_edges': n_edges,
                 //'nodes': node_data_dict, iM getting this file from flask saves graph in search / expand
                 //'edges': edge_data_dict, iM getting this file from flask saves graph in search / expand
                 'network_image': dataURL
             }),
             xhrFields: {
-                responseType: 'blob' // Set the response type to blob
+                responseType: 'blob' // to PDF
             },
             success: function(data, textStatus, jQxhr) {
                 disableSpinner();  // Hide loading spinner
@@ -976,6 +982,7 @@ function updateNodeCount(numberOfNodes) {
 
 function updateEdgeCount(numberOfEdges) {
     document.getElementById('edge-count').innerHTML = `<strong>${numberOfEdges}</strong>`;
+    
 }
 
 
@@ -994,10 +1001,12 @@ function updateNodeCount_TF_TR(nodesDataSet) {
     
     document.getElementById('tf-count').innerHTML = `<strong>${numberOfTF}</strong>`;
     document.getElementById('tr-count').innerHTML = `<strong>${numberOfTR}</strong>`;
+
+    return { numberOfTF, numberOfTR };
 }
 
-function updateDirect_Edges_count (egdesDataSet) {
-    let edges = egdesDataSet.get();
+function updateDirect_Edges_count (edgesDataSet) {
+    let edges = edgesDataSet.get();
     let numberOfDirectEdges = 0;
 
     for (let i = 0; i < edges.length; i++) {
@@ -1007,22 +1016,6 @@ function updateDirect_Edges_count (egdesDataSet) {
     }
     // Update the content with the strong tag intact
     document.getElementById('direct-edge-count').innerHTML = `<strong>${numberOfDirectEdges}</strong>`;
+    return numberOfDirectEdges;
 
 }
-
-/*
-// filter page disappers if the click is not in the button or its components
-window.onclick = function(event) {
-    const dropdown = document.getElementById("dropdownContent");
-    const button = document.querySelector('.dropbtn');
-
-    // Check if the click was outside the dropdown and the button
-    if (!event.target.matches('.dropbtn') && !dropdown.contains(event.target)) {
-        if (dropdown.classList.contains('show')) {
-            dropdown.classList.remove('show'); // Hide dropdown
-        }
-    }
-}
-*/
-
-

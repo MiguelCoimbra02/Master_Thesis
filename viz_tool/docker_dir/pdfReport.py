@@ -10,9 +10,14 @@ from datetime import datetime
 
 class PDFReport(FPDF):
 
-    def __init__(self, queried_genes):
+    def __init__(self, queried_genes, tf_count, tr_count, direct_edges_count, n_nodes, n_edges):
         super().__init__()
         self.queried_genes = queried_genes
+        self.tr_count = tr_count
+        self.tf_count = tf_count    
+        self.direct_edges_count = direct_edges_count
+        self.n_nodes = n_nodes
+        self.n_edges = n_edges
 
     def header(self):
         queried_genes_strings = [str(gene) for gene in self.queried_genes]
@@ -27,14 +32,34 @@ class PDFReport(FPDF):
         self.cell(0, 10, f'Page {self.page_no()}', new_x=XPos.RIGHT, new_y=YPos.TOP)
 
     def add_summary(self, irp_score, tf_rank):
-        if len(tf_rank) == 0:
+        if tf_rank == [0, 4]:
             tf_rank = [0, 1, 2, 3]            
         self.set_font('Helvetica', 'B', 12)  # Use Helvetica
         self.cell(0, 6, 'Analysis Summary', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         self.set_font('Helvetica', '', 10)  # Use Helvetica
         self.cell(0, 6, f'- Minimum IRP Score: {irp_score}', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         tf_rank_strings = [str(rank) for rank in tf_rank]
-        self.cell(0, 6, f'- Trancription factor Ranks searched: {", ".join(tf_rank_strings)}', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(0, 6, f'- Selected Ranks: {", ".join(tf_rank_strings)}',
+              new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+        # --- Divider line (soft grey) ---
+        self.ln(3) 
+        self.set_draw_color(200, 200, 200)  # light grey
+        y = self.get_y()  # current vertical position
+        self.line(10, y, 200, y) 
+        self.ln(3)  
+
+        self.cell(0, 6, f'- Total number of nodes: {self.n_nodes}', 
+                new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(0, 6, f'- Number of Transcription Factors (TF): {self.tf_count}', 
+              new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(0, 6, f'- Number of Transcriptional Regulators (TR): {self.tr_count}', 
+                new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(0, 6, f'- Total number of edges: {self.n_edges}', 
+                new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(0, 6, f'- Number of direct edges: {self.direct_edges_count}', 
+                new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        
         self.ln(10)
 
     def add_legend(self):
@@ -43,9 +68,9 @@ class PDFReport(FPDF):
         self.set_font('Helvetica', '', 8)  # Use Helvetica
         legend_items = [
             '- 0 : Co-Expression Relations predicted using Seidr Software',
-            '- 1 : Regulation predicted in ConnecTF software',
+            '- 1 : Regulation predicted in ConnecTF Database',
             '- 2 : Presence of cis-elements in the promoter region of the target gene',
-            '- 3 : Data from the DAP-seq experiments (Only for LOC111997151, LOC112008346 and LOC112030452 )'
+            '- 3 : Data from the DAP-seq experiments (Available for QsLBD4.2(LOC111997151), QsNAC43.1(LOC112008346) and QsMYB93(LOC112030452))'
         ] 
         for item in legend_items:
             self.cell(0, 4, item, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
@@ -170,7 +195,7 @@ class PDFReport(FPDF):
         self.image(path, h=h, x=0, alt_text='Network screenshot')
         self.ln(2)
         self.set_font('Helvetica', '', 8)  # Use Helvetica
-        self.cell(0, 2, 'For better image quality procede to download the Network via export Network in the tools EXPORT option ', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        self.cell(0, 2, 'For better image quality procede to download the Network via export Network in Canopy\'s EXPORT option ', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
 
 #generate PDF

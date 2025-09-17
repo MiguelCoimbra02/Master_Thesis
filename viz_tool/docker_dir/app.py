@@ -26,7 +26,7 @@ import os
 
 #Initiate Neo4j object to interact with the db
 neo4_service = Neo4jGraphService()
-base_dir = Path('../')
+
 
 app = Flask(__name__)
 CORS(app)
@@ -86,7 +86,8 @@ def search():
     except Exception as e:
         return {'error': f'Invalid query data: {str(e)}'}, 400
     
-@app.route('/report', methods=['GET', 'POST'])
+app = Flask(__name__)
+@app.route('/report', methods=['POST'])
 def generate_report():
     try:
         # Retrieve the JSON data from the request
@@ -95,11 +96,17 @@ def generate_report():
             return {'error': 'Not all data required provided.'}, 400
         quried_nodes = set(data['quried_nodes']) # validNodes
         tf_ranks = list(data['tf_ranks'])
+        
+        n_nodes = int(data.get('n_nodes', 0))
+        n_edges = int(data.get('n_edges', 0))
+        tf_count = int(data.get('tf_count', 0))
+        tr_count = int(data.get('tr_count', 0))
+        direct_edges_count = int(data.get('direct_edges_count', 0))
+
+        print('TF RANK OF THE SEARCH: ', tf_ranks)
 
         subgraph_flask = pickle.loads(r.get('graph_key_exports'))
 
-        if 4 in tf_ranks:
-            tf_ranks.remove(4)
         rangeSliderValue = data['rangeSliderValue']
         nodes_dict = dict(subgraph_flask.nodes(data=True))  
         edges_dict = subgraph_flask.edges(keys=True, data=True)
@@ -121,7 +128,7 @@ def generate_report():
                 return jsonify({'error': f'Error decoding or saving image: {str(e)}'}), 400
 
         #generate pdf
-        pdf = PDFReport(quried_nodes)
+        pdf = PDFReport(quried_nodes, tf_count, tr_count, direct_edges_count, n_nodes, n_edges)
         pdf.add_page()
 
         pdf_file_path = 'gene_relation_report.pdf'
@@ -152,7 +159,6 @@ def generate_report():
             
     except Exception as e:
         return {'error': f'Invalid data: {str(e)}'}, 500    
-
 
 @app.route('/export_nodes')
 def export_nodes():
@@ -293,7 +299,8 @@ def user_guide():
 
 #------------ Full data exports ------------
 
-DOWNLOAD_FOLDER = os.path.join(base_dir, 'viz_tool', 'data')
+base_dir = os.path.dirname(os.path.abspath(__file__))  # directory of app.py
+DOWNLOAD_FOLDER = os.path.join(base_dir, 'data')
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 
 @app.route('/downloads/<filename>', methods=['GET'])
